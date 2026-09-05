@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{880ADE98-06A3-43F9-B987-A11E40CDCC92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{B2C66D02-83B9-467A-B0E3-E2F7F000FBE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryRepositories", "InMemoryRepositories\InMemoryRepositories.csproj", "{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{880ADE98-06A3-43F9-B987-A11E40CDCC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880ADE98-06A3-43F9-B987-A11E40CDCC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880ADE98-06A3-43F9-B987-A11E40CDCC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880ADE98-06A3-43F9-B987-A11E40CDCC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{143CDF05-AE61-4CA1-8C35-A5863DEAF6D7} = {B2C66D02-83B9-467A-B0E3-E2F7F000FBE2}
+		{880ADE98-06A3-43F9-B987-A11E40CDCC92} = {B2C66D02-83B9-467A-B0E3-E2F7F000FBE2}
+		{082F1105-EF62-40F4-8BDA-F5FAC7B16FD5} = {B2C66D02-83B9-467A-B0E3-E2F7F000FBE2}
+	EndGlobalSection
+EndGlobal
