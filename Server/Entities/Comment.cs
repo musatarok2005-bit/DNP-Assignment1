@@ -6,4 +6,7 @@ public class Comment
     public string Body { get; set; }
     public int UserId { get; set; }
     public int PostId { get; set; }
+    public int Likes { get; set; }
+    public int Dislikes { get; set; }
+    public DateTime Created { get; set; }
 }
