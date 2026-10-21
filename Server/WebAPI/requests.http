@@ -1,0 +1,141 @@
+
+### 1. Opret en bruger
+POST http://localhost:5020/Users
+Content-Type: application/json
+
+{
+  "username": "mussa",
+  "password": "1234",
+  "email": "mussa@gmail.com"
+}
+
+### 2. Hent alle brugere
+GET http://localhost:5020/Users
+
+### 3. Hent bruger med ID 1
+GET http://localhost:5020/Users/1
+
+### 4. Søg efter brugernavn
+GET http://localhost:5020/Users?username=mus
+
+### 5. Opdater bruger med ID 1
+PUT http://localhost:5020/Users/1
+Content-Type: application/json
+
+{
+  "username": "mussa123",
+  "password": "5678",
+  "email": "mussa123@gmail.com"
+}
+
+### 6. Slet bruger med ID 1
+DELETE http://localhost:5020/Users/1
+
+
+### 7. Opret et opslag
+POST http://localhost:5020/Posts
+Content-Type: application/json
+
+{
+  "title": "Mit første opslag",
+  "body": "Dette er et testopslag",
+  "userId": 1,
+  "likes": 0,
+  "dislikes": 0,
+  "created": "2026-10-19T12:00:00"
+}
+
+
+### 8. Hent alle opslag
+GET http://localhost:5020/Posts
+
+### 9. Hent opslag med ID 1
+GET http://localhost:5020/Posts/1
+
+### 10. Søg efter titel
+GET http://localhost:5020/Posts?title=Mit
+
+### 11. Filtrer efter bruger-ID
+GET http://localhost:5020/Posts?userId=1
+
+### 12. Filtrer efter brugernavn
+GET http://localhost:5020/Posts?username=mussa
+
+### 13. Opdater opslag
+PUT http://localhost:5020/Posts/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "Mit opdaterede opslag",
+  "body": "Jeg har ændret teksten",
+  "userId": 1,
+  "likes": 5,
+  "dislikes": 0,
+  "created": "2026-10-19T12:00:00"
+}
+
+### 14. Slet opslag
+DELETE http://localhost:5020/Posts/1
+
+
+### 15. Opret et opslag til kommentaren
+POST http://localhost:5020/Posts
+Content-Type: application/json
+
+{
+  "title": "Opslag med kommentarer",
+  "body": "Her tester vi kommentarer",
+  "userId": 1,
+  "likes": 0,
+  "dislikes": 0,
+  "created": "2026-10-19T12:00:00"
+}
+
+### 16. Opret en kommentar
+POST http://localhost:5020/Comments
+Content-Type: application/json
+
+{
+  "body": "Dette er min første kommentar",
+  "userId": 1,
+  "postId": 1,
+  "likes": 0,
+  "dislikes": 0,
+  "created": "2026-10-19T12:00:00"
+}
+
+### 17. Hent alle kommentarer
+GET http://localhost:5020/Comments
+
+### 18. Hent kommentar med ID
+GET http://localhost:5020/Comments/1
+
+### 19. Filtrer efter bruger-ID
+GET http://localhost:5020/Comments?userId=1
+
+### 20. Filtrer efter brugernavn
+GET http://localhost:5020/Comments?username=mussa
+
+### 21. Filtrer efter post-ID
+GET http://localhost:5020/Comments?postId=1
+
+### 22. Kombiner filtre
+GET http://localhost:5020/Comments?userId=1&postId=1
+
+### 23. Opdater kommentar
+PUT http://localhost:5020/Comments/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "body": "Dette er min opdaterede kommentar",
+  "userId": 1,
+  "postId": 1,
+  "likes": 5,
+  "dislikes": 0,
+  "created": "2026-10-19T12:00:00"
+}
+
+### 24. Slet kommentar
+DELETE http://localhost:5020/Comments/1
