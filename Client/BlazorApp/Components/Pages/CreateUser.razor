@@ -1,0 +1,52 @@
+@page "/create-user"
+@rendermode InteractiveServer
+@using ApiContracts
+@using BlazorApp.Services
+@inject IUserService UserService
+
+<h3>Create User</h3>
+
+<EditForm Model="newUser" OnValidSubmit="CreateUserAsync" FormName="createUser">
+    <DataAnnotationsValidator />
+
+    <div>
+        <label>Username:</label>
+        <InputText @bind-Value="newUser.Username" />
+    </div>
+
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="newUser.Password" type="password" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="newUser.Email" />
+    </div>
+
+    <button type="submit">Create User</button>
+</EditForm>
+
+<p>@message</p>
+
+@code {
+    private CreateUserDto newUser = new CreateUserDto();
+    private string message = "";
+
+    private async Task CreateUserAsync()
+    {
+        try
+        {
+            // CREATE - POST /Users
+            UserDto user = await UserService.AddUserAsync(newUser);
+
+            message = $"User {user.Username} created successfully!";
+
+            newUser = new CreateUserDto();
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+}

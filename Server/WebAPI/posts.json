@@ -1,1 +1,1 @@
-[{"Id":1,"Title":"Opslag med kommentarer","Body":"Her tester vi kommentarer","UserId":1,"Likes":0,"Dislikes":0,"Created":"2026-10-19T12:00:00"}]
+[{"Id":1,"Title":"Opslag med kommentarer","Body":"Her tester vi kommentarer","UserId":1,"Likes":0,"Dislikes":0,"Created":"2026-10-19T12:00:00"},{"Id":2,"Title":"My first post","Body":"This is my first post from Blazor","UserId":1,"Likes":0,"Dislikes":0,"Created":"2026-10-24T13:31:04.2804257+02:00"},{"Id":3,"Title":"testpost","Body":"idk man","UserId":1,"Likes":0,"Dislikes":0,"Created":"2026-10-24T20:13:08.0623314+02:00"}]

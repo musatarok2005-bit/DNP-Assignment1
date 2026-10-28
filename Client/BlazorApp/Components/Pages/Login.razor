@@ -1,0 +1,57 @@
+@page "/login"
+@rendermode InteractiveServer
+@using BlazorApp.Auth
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthProvider
+
+<AuthorizeView>
+    <NotAuthorized>
+        <h3>Please login</h3>
+
+        <label>User name:</label>
+        <input type="text" @bind="userName" />
+
+        <label>Password:</label>
+        <input type="password" @bind="password" />
+
+        @if (!string.IsNullOrEmpty(errorLabel))
+        {
+            <p style="color: red">@errorLabel</p>
+        }
+
+        <button @onclick="LoginAsync">Log in</button>
+    </NotAuthorized>
+
+    <Authorized>
+        <h3>Hello, @context.User.Identity?.Name</h3>
+        <button @onclick="Logout">Log out</button>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string userName = "";
+    private string password = "";
+    private string errorLabel = "";
+
+    private async Task LoginAsync()
+    {
+        errorLabel = "";
+
+        try
+        {
+            // LOGIN - POST /auth/login
+            await ((SimpleAuthProvider)AuthProvider).Login(userName, password);
+            
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+
+    private void Logout()
+    {
+        // LOGOUT
+        ((SimpleAuthProvider)AuthProvider).Logout();
+    }
+}

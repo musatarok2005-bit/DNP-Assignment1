@@ -1,0 +1,37 @@
+@page "/posts"
+@rendermode InteractiveServer
+@using Entities
+@using BlazorApp.Services
+@inject IPostService PostService
+
+<h3>Posts</h3>
+
+@if (posts == null)
+{
+    <p>Loading posts...</p>
+}
+else if (posts.Count == 0)
+{
+    <p>No posts found.</p>
+}
+else
+{
+    @foreach (Post post in posts)
+    {
+        <div>
+            <h4>
+                <a href="@($"/posts/{post.Id}")">@post.Title</a>
+            </h4>
+        </div>
+    }
+}
+
+@code {
+    private List<Post>? posts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // GET MANY - GET /Posts
+        posts = await PostService.GetPostsAsync();
+    }
+}

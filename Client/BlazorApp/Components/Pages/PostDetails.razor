@@ -1,0 +1,135 @@
+@page "/posts/{Id:int}"
+@rendermode InteractiveServer
+@using Entities
+@using ApiContracts
+@using BlazorApp.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject IPostService PostService
+@inject IUserService UserService
+@inject ICommentService CommentService
+
+<h3>Post Details</h3>
+
+@if (post == null)
+{
+    <p>Loading post...</p>
+}
+else
+{
+    <h4>@post.Title</h4>
+    <p>@post.Body</p>
+    <p>Author: @authorName</p>
+
+    <hr />
+
+    <h4>Comments</h4>
+
+    @if (comments.Count == 0)
+    {
+        <p>No comments yet.</p>
+    }
+    else
+    {
+        @foreach (Comment comment in comments)
+        {
+            <div>
+                <p>@comment.Body</p>
+                <hr />
+            </div>
+        }
+    }
+
+    <AuthorizeView>
+        <Authorized Context="authContext">
+            <h4>Add Comment</h4>
+
+            <EditForm Model="newComment" OnValidSubmit="AddCommentAsync"
+                      FormName="addComment">
+                <DataAnnotationsValidator />
+
+                <div>
+                    <label>Comment:</label>
+                    <InputTextArea @bind-Value="newComment.Body" />
+                </div>
+
+                <button type="submit">Add Comment</button>
+            </EditForm>
+
+            <p>@message</p>
+        </Authorized>
+
+        <NotAuthorized>
+            <p>You have to log in to add a comment!</p>
+            <NavLink href="/login">Go to login</NavLink>
+        </NotAuthorized>
+    </AuthorizeView>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; } = null!;
+
+    private Post? post;
+    private string authorName = "";
+    private List<Comment> comments = new List<Comment>();
+    private Comment newComment = new Comment();
+    private string message = "";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // GET SINGLE - GET /Posts/1
+        post = await PostService.GetPostAsync(Id);
+
+        // GET SINGLE - GET /Users/1
+        UserDto user = await UserService.GetUserAsync(post.UserId);
+        authorName = user.Username;
+
+        // GET MANY - GET /Comments?postId=1
+        comments = await CommentService.GetCommentsAsync(postId: Id);
+    }
+
+    private async Task AddCommentAsync()
+    {
+        try
+        {
+            // Get the logged-in user
+            AuthenticationState state = await AuthenticationState;
+            var user = state.User;
+
+            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            {
+                message = "You must be logged in.";
+                return;
+            }
+
+            // Get the user ID from claims
+            string? id = user.FindFirst("Id")?.Value;
+
+            if (id == null)
+            {
+                message = "User ID not found.";
+                return;
+            }
+
+            newComment.UserId = int.Parse(id);
+            newComment.PostId = Id;
+            newComment.Created = DateTime.Now;
+
+            // CREATE - POST /Comments
+            await CommentService.AddCommentAsync(newComment);
+
+            // Reload comments after creating a new comment
+            comments = await CommentService.GetCommentsAsync(postId: Id);
+
+            message = "Comment added successfully!";
+            newComment = new Comment();
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+}

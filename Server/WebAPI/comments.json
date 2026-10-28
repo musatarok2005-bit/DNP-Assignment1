@@ -1,1 +1,1 @@
-[]
+[{"Id":1,"Body":"This is my first comment from Blazor","UserId":1,"PostId":2,"Likes":0,"Dislikes":0,"Created":"2026-10-24T13:34:14.5490183+02:00"},{"Id":2,"Body":"first comment as logged in user","UserId":1,"PostId":3,"Likes":0,"Dislikes":0,"Created":"2026-10-26T10:00:28.934248+01:00"}]

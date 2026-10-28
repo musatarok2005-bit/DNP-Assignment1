@@ -1,0 +1,83 @@
+
+@page "/create-post"
+@rendermode InteractiveServer
+@using Entities
+@using BlazorApp.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@inject IPostService PostService
+
+<h3>Create Post</h3>
+
+<AuthorizeView>
+    <Authorized Context="authContext">
+        <EditForm Model="newPost" OnValidSubmit="CreatePostAsync"
+                  FormName="createPost">
+            <DataAnnotationsValidator />
+
+            <div>
+                <label>Title:</label>
+                <InputText @bind-Value="newPost.Title" />
+            </div>
+
+            <div>
+                <label>Body:</label>
+                <InputTextArea @bind-Value="newPost.Body" />
+            </div>
+
+            <button type="submit">Create Post</button>
+        </EditForm>
+
+        <p>@message</p>
+    </Authorized>
+
+    <NotAuthorized>
+        <p>You have to log in to create a post!</p>
+        <a href="/login">Go to login</a>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private Post newPost = new Post();
+    private string message = "";
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; } = null!;
+
+    private async Task CreatePostAsync()
+    {
+        try
+        {
+            // Get the logged-in user
+            AuthenticationState state = await AuthenticationState;
+            var user = state.User;
+
+            if (user.Identity == null || !user.Identity.IsAuthenticated)
+            {
+                message = "You must be logged in.";
+                return;
+            }
+
+            // Get the user ID from claims
+            string? id = user.FindFirst("Id")?.Value;
+
+            if (id == null)
+            {
+                message = "User ID not found.";
+                return;
+            }
+
+            newPost.UserId = int.Parse(id);
+            newPost.Created = DateTime.Now;
+
+            // CREATE - POST /Posts
+            Post post = await PostService.AddPostAsync(newPost);
+
+            message = $"Post '{post.Title}' created successfully!";
+            newPost = new Post();
+        }
+        catch (Exception e)
+        {
+            message = e.Message;
+        }
+    }
+}

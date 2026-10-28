@@ -139,3 +139,22 @@ Content-Type: application/json
 
 ### 24. Slet kommentar
 DELETE http://localhost:5020/Comments/1
+
+
+### LOGIN - POST /auth/login
+POST http://localhost:5020/auth/login
+Content-Type: application/json
+
+{
+  "username": "testblazeor",
+  "password": "1234"
+}
+
+### LOGIN - Wrong password
+POST http://localhost:5020/auth/login
+Content-Type: application/json
+
+{
+  "username": "testblazeor",
+  "password": "wrongpassword"
+}
